@@ -1,0 +1,78 @@
+body {
+	margin: 40px;
+}
+#board {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	position: relative;
+	box-shadow: 0 0 35px -5px black;
+}
+#board:before {
+	content: "";
+	display: block;
+	padding-bottom: 80%;
+}
+.aspect {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+}
+.tile {
+	width: 8.33333%;
+	height: 50%;
+	float: right;
+	position: relative;
+	background-color: #ccc;
+}
+.tile.bottom{
+	float: left;
+	transform: rotate(180deg);
+}
+.tile:before {
+	position: absolute;
+	top: -9%;
+	content: "";
+	width: 100%;
+	padding-bottom: 100%;
+	background-color: #333;
+	transform: scale(0.7, 5.5) rotate(45deg);
+}
+.tile.odd:before {
+	background-color: maroon;
+}
+.tile.bottom:before {
+	/*top: auto;
+	bottom: -9%;*/
+}
+/*.tile:hover:before {
+	box-shadow: 0 0 2px 3px #fff;
+}*/
+.checker {
+	width: 100%;
+	padding-bottom: 100%;
+	position: relative;
+	margin-bottom: -10px;
+}
+.checker:before {
+	background-color: #CF1111;
+	content: "";
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	bottom: 5px;
+	left: 5px;
+	border-radius: 100px;
+	border: 1px solid maroon;
+	box-shadow: 0 0 5px black, inset 4px 4px 2px -5px white;
+}
+.bottom .checker:before {
+	box-shadow: 0 0 5px black, inset -4px -4px 2px -5px white;
+}
+.checker.b:before {
+	background-color: #555;
+	border-color: #333;
+}

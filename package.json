@@ -1,0 +1,19 @@
+{
+  "name": "backgammon-web",
+  "version": "0.0.1",
+  "description": "",
+  "bin": {
+    "bgweb":"./bin/backgammon-web.js"
+  },
+  "main": "./src/server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jeppe Burchardt",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~4.9.3",
+    "socket.io": "~1.1.0",
+    "backgammon-ai": "git://github.com/kosmobot/backgammon-ai.git"
+  }
+}
