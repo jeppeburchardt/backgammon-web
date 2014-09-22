@@ -92,6 +92,8 @@ body {
 	height: 50%;
 	float: right;
 	position: relative;
+	animation: none;
+	text-align: center;
 }
 .bar {
 	width: 7.69230769%;
@@ -99,7 +101,8 @@ body {
 	float: right;
 	position: relative;
 	transform: rotate(180deg);
-	
+	animation: none;
+	text-align: center;
 }
 .bar.bottom {
 	float: left;
@@ -123,32 +126,64 @@ body {
 	position: absolute;
 	top: -10%;
 	content: "";
+	display: block;
 	width: 100%;
 	padding-bottom: 100%;
 	background-color: #333;
 	transform: scale(0.7, 5.5) rotate(45deg);
+	animation: none;
 }
 .tile.odd:before {
 	background-color: maroon;
 }
+.tile:after,
+.bar:after {
+
+}
+
+
 .tile.bottom:before {
 	/*top: auto;
 	bottom: -9%;*/
 }
 .tile:hover .checker:last-child {
-	opacity: 0.7;
+	/*opacity: 0.7;*/
 }
 .tile.drag-over:before {
-	opacity: 0.7;
+	/*opacity: 0.7;*/
 }
-.no-drag .bar.available-drag:before {
-	background-color: white;
+.no-drag .tile.available-drag:after,
+.drag .tile.available-drop:after,
+.no-drag .bar.available-drag:after,
+.no-drag .tile.odd.available-drag:after,
+.drag .tile.odd.available-drop:after
+{
+	position: relative;
+	content: "";
+	left:25%;
+	display: block;
+	width: 0px;
+	border: 10px solid rgba(0,0,0,0);
+	border-bottom-width: 30px;
+	border-bottom-color: white;
 }
-.no-drag .tile.available-drag:before {
-	background-color: white;
+
+.no-drag .tile.available-drag:after,
+.drag .tile.available-drop:after,
+.no-drag .bar.available-drag:after,
+.no-drag .tile.odd.available-drag:after,
+.drag .tile.odd.available-drop:after {
+	-webkit-animation: highlight 1s infinite;
 }
-.drag .tile.available-drop:before {
-	background-color: white;
+@-webkit-keyframes highlight {
+  0%, 100% {
+    border-bottom-color: white;
+    bottom: -5%;
+  }
+  50% {
+    /*border-bottom-color: maroon;*/
+    bottom: 5%;
+  }
 }
 .checker {
 	width: 100%;
