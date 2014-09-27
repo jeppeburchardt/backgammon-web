@@ -14,14 +14,14 @@ requirejs(['board', 'dragdrop'], function (Board, DragDrop) {
 	var dragdrop = new DragDrop();
 	dragdrop.init(board);
 
-	socket.on('turnStart', function (dice) {
+	socket.on('turnStart', function (playerId, dice) {
 		// a (non-player) turn has started
 		board.setDice(dice, 'b');
 	});
 
-	socket.on('turn', function (data) {
+	socket.on('turn', function (playerId, data, moves) {
 		// a (non-player) turn has completed
-		board.updateBoard(data);
+		board.updateBoard(data, moves, playerId);
 	});
 
 	socket.on('dice', function (data) {

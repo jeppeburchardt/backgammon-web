@@ -1,12 +1,18 @@
-define(['q'], function(Q) {
+define(['q', 'animations'], function(Q, animations) {
 
 	var Board = function (el) {
 
 		var self = this;
 
+		//debug hack:
+		window.board = this;
+
+		self.boardData = null;
 		self.tiles = [];
 		self.topBar = null;
 		self.bottomBar = null;
+		self.topHome = null;
+		self.bottomHome = null;
 		self.el = el || document.getElementById('board');
 		self.dice = self.el.querySelectorAll('.die');
 
@@ -17,9 +23,33 @@ define(['q'], function(Q) {
 			self.dice[0].className = self.dice[1].className = color;
 		};
 
-		this.updateBoard = function (data) {
-			var playerA = data.players[0];
-			var playerB = data.players[1];
+		this.psuedoPlayerMove = function (from, to) {
+			animations.moveChecker(self, 0, from, to, true);
+		};
+
+		this.updateBoard = function (data, moves, playerId) {
+
+			if (data) {
+				self.boardData = data;
+			}
+
+			if (moves && playerId != undefined) {
+				// console.log('updateBoard', playerId);
+				animations.moveCheckers(self, moves, playerId).then(function () {
+					// console.log('animations succedeed');
+				}).fail(function () {
+					console.error('animations failed');
+				}).done(function () {
+					console.log('animations done');
+					self.updateBoard();
+				});
+				return;
+			} else {
+				console.log('updateBoard');
+			}
+
+			var playerA = self.boardData.players[0];
+			var playerB = self.boardData.players[1];
 
 			document.querySelector('#info .a .name span').innerText = playerA.name;
 			document.querySelector('#info .b .name span').innerText = playerB.name;
@@ -29,7 +59,7 @@ define(['q'], function(Q) {
 			document.querySelector('#info .b .beared.off span').innerText = playerB.bearedOff;
 
 			var a = playerA.checkers;
-			var b = playerB.checkers.reverse();
+			var b = playerB.checkers.slice().reverse();
 			function buildCheckers(num, cssClass) {
 				for (var i = 0, html = ''; i < num; i++) {
 					html += '<div class="checker '+cssClass+'"></div>';
@@ -51,6 +81,18 @@ define(['q'], function(Q) {
 				bhHtml += '<div class="checker b"></div>';
 			}
 			self.bottomBar.innerHTML = bhHtml;
+
+			var abHtml = '';
+			for (var ah = 0; ah < playerA.bearedOff; ah++) {
+				abHtml += '<div class="checker a"></div>';
+			}
+			self.bottomHome.innerHTML = abHtml;
+
+			var bbHtml = '';
+			for (var bh = 0; bh < playerB.bearedOff; bh++) {
+				bbHtml += '<div class="checker b"></div>';
+			}
+			self.topHome.innerHTML = bbHtml;
 		};
 
 		this.buildBoard = function () {
@@ -74,6 +116,9 @@ define(['q'], function(Q) {
 			
 			self.topBar = self.el.querySelector('.bar.top');
 			self.bottomBar = self.el.querySelector('.bar.bottom');
+
+			self.topHome = self.el.querySelector('.home.top');
+			self.bottomHome = self.el.querySelector('.home.bottom');
 		};
 
 	};

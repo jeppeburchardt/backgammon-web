@@ -8,26 +8,24 @@ var io = require('socket.io')(server);
 var Human = require('./Human');
 
 var games = [];
+var humanInterface;
 
 app.use('/', express.static(path.join(__dirname, '../../static')));
 
 function startGame(socket) {
-	var game = new bg.Game(500);
+	var game = new bg.Game(3000);
+	// game.board.initialEndGameCheckers();
 	// var display = new bg.Display(game);
-	var humanInterface = new Human(socket);
+	humanInterface = new Human(socket);
 	game.setController(humanInterface, 'Human');
-	game.setController(new bg.controllers.PrimerEndGame(), 'PrimerEndGame');
+	game.setController(new bg.controllers.PrimerEndGame(), 'Machine');
 	// game.setController(new bg.controllers.PrimerEndGame(), 'PrimerEndGame2');
 
 	game.on('turnStart', function(id, dice) {
-		if (id != humanInterface.id) {
-			socket.emit('turnStart', dice);
-		}
+		socket.emit('turnStart', id, dice);
 	})
 	game.on('turn', function (id, moves) {
-		if (id != humanInterface.id) {
-			socket.emit('turn', game.board, moves);
-		}
+		socket.emit('turn', id, game.board, moves);
 	});
 
 	game.on('end', function () {
@@ -40,8 +38,9 @@ function startGame(socket) {
 
 io.on('connection', function (socket) {
 	var game = startGame(socket);
+	socket.emit('playerId', humanInterface.id);
 	socket.join('game');
-	socket.emit('turn', game.board);
+	socket.emit('turn', game.getCurrentIndex(), game.board);
 	games.push(game);
 });
 
