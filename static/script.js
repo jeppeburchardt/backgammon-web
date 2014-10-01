@@ -3,7 +3,7 @@ var moves = [];
 var availableMoves = [];
 var dice = [];
 
-var socket = io.connect('http://localhost');
+var socket = io.connect();
 
 var topBar = document.querySelector('#board .bar.top');
 var bottomBar = document.querySelector('#board .bar.bottom');
