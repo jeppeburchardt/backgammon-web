@@ -6,7 +6,7 @@ requirejs.config({
 
 requirejs(['board', 'dragdrop'], function (Board, DragDrop) {
 
-	var socket = io.connect('http://localhost');
+	var socket = io.connect();
 
 	var board = new Board();
 	board.buildBoard();
