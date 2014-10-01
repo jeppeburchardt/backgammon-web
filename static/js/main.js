@@ -14,6 +14,12 @@ requirejs(['board', 'dragdrop'], function (Board, DragDrop) {
 	var dragdrop = new DragDrop();
 	dragdrop.init(board);
 
+	socket.on('lobby', function () {
+
+		document.querySelector('.content.lobby').style.display = 'block';
+
+	});
+
 	socket.on('turnStart', function (playerId, dice) {
 		// a (non-player) turn has started
 		board.setDice(dice, 'b');

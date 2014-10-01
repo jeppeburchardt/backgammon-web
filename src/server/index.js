@@ -6,12 +6,17 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var config = require('config');
 
+var Lobby = require('./Lobby');
+
 var Human = require('./Human');
 
 var games = [];
 var humanInterface;
 
 app.use('/', express.static(path.join(__dirname, '../../static')));
+
+var lobby = new Lobby(io);
+
 
 function startGame(socket) {
 	var game = new bg.Game(3000);
@@ -29,15 +34,17 @@ function startGame(socket) {
 		socket.emit('turn', id, game.board, moves);
 	});
 
-	game.on('end', function () {
+	game.on('result', function (result) {
 		// startGame();
+		socket.emit('result', result);
+
 	});
 
 	game.start();
 	return game;
 }
 
-io.on('connection', function (socket) {
+io.on('__connection', function (socket) {
 	var game = startGame(socket);
 	socket.emit('playerId', humanInterface.id);
 	socket.join('game');
