@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var config = require('config');
 
 var Human = require('./Human');
 
@@ -45,5 +46,5 @@ io.on('connection', function (socket) {
 });
 
 module.exports = function () {
-	server.listen(1234);
+	server.listen(config.web.port);
 };
