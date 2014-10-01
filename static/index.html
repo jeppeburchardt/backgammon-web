@@ -4,7 +4,37 @@
 		<script src="/socket.io/socket.io.js" type="text/javascript"></script>
 	</head>
 	<body>
-		<div class="content">
+		<div class="content logo">
+			<h1>
+				<span>Backgammon</span>
+			</h1>
+		</div>
+		<div class="content menu">
+			<a href="#">Play Game</a>
+			<a href="#">Write Bot</a>
+		</div>
+		<div class="content lobby">
+			<select id="type">
+				<option value="human-vs-machine">Human VS Machine</option>
+				<option value="human-vs-machine">Machine VS Machine</option>
+			</select>
+			<select id="controller-a">
+				<option value="Aggressive">Aggressive</option>
+				<option value="PrimerEndGame">PrimerEndGame</option>
+				<option value="Random">Random</option>
+				<option value="Safe">Safe</option>
+				<option value="Runner">Runner</option>
+			</select>
+			<select id="controller-b">
+				<option value="Aggressive">Aggressive</option>
+				<option value="PrimerEndGame">PrimerEndGame</option>
+				<option value="Random">Random</option>
+				<option value="Safe">Safe</option>
+				<option value="Runner">Runner</option>
+			</select>
+			<input type="submit" value="start">
+		</div>
+		<div class="content game">
 			<div id="board">
 				<div id="dice">
 					<div class="die f">?</div>

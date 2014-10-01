@@ -8,6 +8,33 @@ body {
 .content {
 	max-width: 550px;
 	margin: auto;
+	clear: both;
+}
+.content.logo {
+
+}
+.logo h1 {
+	float: left;
+	background-color: #ccc;
+	border-radius: 10px;
+	padding: 10px;
+	font-size: 22px;
+	box-shadow: 0 0 15px #999;
+	border: 1px solid #bbb;
+}
+.logo h1 span {
+	display: block;
+	background-color: #eee;
+	border-radius: 5px;
+	padding: 20px 50px 30px 20px;
+	border: 1px solid #fff;
+}
+
+.content.lobby {
+	display: none;
+}
+.content.game {
+	display: none;
 }
 
 #info {
