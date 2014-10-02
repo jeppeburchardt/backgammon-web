@@ -106,6 +106,10 @@ body {
 	top: 5%;
 	position: absolute;
 	right: -10%;
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
 	transform: rotate(180deg);
 	border: 2px dashed #aaa;
 	border-radius: 20px;
@@ -113,6 +117,10 @@ body {
 }
 .home.bottom {
 	top: 55%;
+	-ms-transform: none;
+	-o-transform: none;
+	-webkit-transform: none;
+	-moz-transform: none;
 	transform: none;
 }
 .bar {
@@ -120,12 +128,20 @@ body {
 	height: 50%;
 	float: right;
 	position: relative;
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
 	transform: rotate(180deg);
 	animation: none;
 	text-align: center;
 }
 .bar.bottom {
 	float: left;
+	-ms-transform: none;
+	-o-transform: none;
+	-webkit-transform: none;
+	-moz-transform: none;
 	transform: none;
 }
 .bar:before {
@@ -140,6 +156,10 @@ body {
 }
 .tile.bottom{
 	float: left;
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
 .tile:before {
@@ -150,6 +170,10 @@ body {
 	width: 100%;
 	padding-bottom: 100%;
 	background-color: #333;
+	-ms-transform: scale(0.7, 5.5) rotate(45deg);
+	-o-transform: scale(0.7, 5.5) rotate(45deg);
+	-webkit-transform: scale(0.7, 5.5) rotate(45deg);
+	-moz-transform: scale(0.7, 5.5) rotate(45deg);
 	transform: scale(0.7, 5.5) rotate(45deg);
 	animation: none;
 }
