@@ -201,13 +201,30 @@ body {
 .no-drag .tile.odd.available-drag:after,
 .drag .tile.odd.available-drop:after {
 	-webkit-animation: highlight 1s infinite;
+	-moz-animation: highlight 1s infinite;
+	animation: highlight 1s infinite;
 }
 @-webkit-keyframes highlight {
   0%, 100% {
     bottom: -5%;
   }
   50% {
-    /*border-bottom-color: maroon;*/
+    bottom: 5%;
+  }
+}
+@-moz-keyframes highlight {
+  0%, 100% {
+    bottom: -5%;
+  }
+  50% {
+    bottom: 5%;
+  }
+}
+@keyframes highlight {
+  0%, 100% {
+    bottom: -5%;
+  }
+  50% {
     bottom: 5%;
   }
 }
