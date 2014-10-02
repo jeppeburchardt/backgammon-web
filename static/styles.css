@@ -275,6 +275,9 @@ body {
 	border: 1px solid maroon;
 	box-shadow: 0 0 5px black, inset 4px 4px 2px -5px white;
 }
+.stack .checker {
+	margin-bottom: -50%;
+}
 .bar.top .checker:before,
 .home.top .checker:before,
 .tile.bottom .checker:before {

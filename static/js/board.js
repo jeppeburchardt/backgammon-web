@@ -82,7 +82,13 @@ define(['q', 'animations'], function(Q, animations) {
 				return html;
 			}
 			self.tiles.forEach(function (el, i) {
-				el.innerHTML = buildCheckers(Math.max(a[i], b[i]), a[i]>b[i]?'a':'b');
+				var numCheckers = Math.max(a[i], b[i]);
+				el.innerHTML = buildCheckers(numCheckers, a[i]>b[i]?'a':'b');
+				if (numCheckers > 5) {
+					el.classList.add('stack');
+				} else {
+					el.classList.remove('stack');
+				}
 			});
 
 			var ahHtml = '';
