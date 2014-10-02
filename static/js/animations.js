@@ -41,9 +41,7 @@ define(['q'], function (Q) {
 		return c;
 	}
 
-	function moveChecker(board, playerId, from, to, pseudo) {
-
-		console.log('move checker', playerId, from, to, pseudo);
+	function moveChecker(board, playerId, from, to, pseudo, dragDropGhost) {
 
 		var deffered = Q.defer();
 
@@ -69,10 +67,7 @@ define(['q'], function (Q) {
 		}
 		grab.parentNode.removeChild(grab);
 		
-		var ghost = document.createElement('div');
-		ghost.className = 'ghost';
-		ghost.innerHTML = '<div class="checker '+(playerId==0?'a':'b')+'"></div>';
-		board.el.querySelector('.aspect').appendChild(ghost);
+		var ghost = dragDropGhost || self.board.createChost((playerId==0?'a':'b'));
 
 		//start position:
 		var start = positionToCoordinates(board, from, playerId);

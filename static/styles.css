@@ -185,7 +185,11 @@ body {
 
 }
 
-
+.tile.dragging {
+}
+.tile.dragging .checker:last-child {
+	display: none;
+}
 .tile.bottom:before {
 	/*top: auto;
 	bottom: -9%;*/

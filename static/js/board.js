@@ -28,8 +28,8 @@ define(['q', 'animations'], function(Q, animations) {
 			self.dice[0].className = self.dice[1].className = color;
 		};
 
-		this.psuedoPlayerMove = function (from, to) {
-			animations.moveChecker(self, 0, from, to, true);
+		this.psuedoPlayerMove = function (from, to, ghost) {
+			return animations.moveChecker(self, 0, from, to, true, ghost);
 		};
 
 		this.updateBoard = function (data, moves, playerId) {
@@ -135,6 +135,14 @@ define(['q', 'animations'], function(Q, animations) {
 			self.topHome = self.el.querySelector('.home.top');
 			self.bottomHome = self.el.querySelector('.home.bottom');
 		};
+
+		this.createChost = function (color) {
+			var ghost = document.createElement('div');
+			ghost.className = 'ghost';
+			ghost.innerHTML = '<div class="checker '+color+'"></div>';
+			self.el.querySelector('.aspect').appendChild(ghost);
+			return ghost;
+		}
 
 	};
 
