@@ -18,8 +18,13 @@ define(['q', 'animations'], function(Q, animations) {
 
 
 		this.setDice = function (roll, color) {
-			self.dice[0].innerText = roll[0];
-			self.dice[1].innerText = roll[1];
+			if ('textContent' in document) {
+				self.dice[0].textContent = roll[0];
+				self.dice[1].textContent = roll[1];
+			} else {
+				self.dice[0].innerText = roll[0];
+				self.dice[1].innerText = roll[1];
+			}
 			self.dice[0].className = self.dice[1].className = color;
 		};
 
@@ -51,12 +56,22 @@ define(['q', 'animations'], function(Q, animations) {
 			var playerA = self.boardData.players[0];
 			var playerB = self.boardData.players[1];
 
-			document.querySelector('#info .a .name span').innerText = playerA.name;
-			document.querySelector('#info .b .name span').innerText = playerB.name;
-			document.querySelector('#info .a .hits span').innerText = playerA.hits;
-			document.querySelector('#info .b .hits span').innerText = playerB.hits;
-			document.querySelector('#info .a .beared.off span').innerText = playerA.bearedOff;
-			document.querySelector('#info .b .beared.off span').innerText = playerB.bearedOff;
+			if ('textContent' in document) {
+				document.querySelector('#info .a .name span').textContent = playerA.name;
+				document.querySelector('#info .b .name span').textContent = playerB.name;
+				document.querySelector('#info .a .hits span').textContent = playerA.hits;
+				document.querySelector('#info .b .hits span').textContent = playerB.hits;
+				document.querySelector('#info .a .beared.off span').textContent = playerA.bearedOff;
+				document.querySelector('#info .b .beared.off span').textContent = playerB.bearedOff;
+			} else {
+				document.querySelector('#info .a .name span').innerText = playerA.name;
+				document.querySelector('#info .b .name span').innerText = playerB.name;
+				document.querySelector('#info .a .hits span').innerText = playerA.hits;
+				document.querySelector('#info .b .hits span').innerText = playerB.hits;
+				document.querySelector('#info .a .beared.off span').innerText = playerA.bearedOff;
+				document.querySelector('#info .b .beared.off span').innerText = playerB.bearedOff;
+
+			}
 
 			var a = playerA.checkers;
 			var b = playerB.checkers.slice().reverse();
