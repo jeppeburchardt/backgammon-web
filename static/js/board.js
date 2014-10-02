@@ -38,6 +38,11 @@ define(['q', 'animations'], function(Q, animations) {
 				self.boardData = data;
 			}
 
+			var ghost;
+			while(ghost = self.el.querySelector('.ghost')) {
+				ghost.parentNode.removeChild(ghost);
+			}
+
 			if (moves && playerId != undefined) {
 				// console.log('updateBoard', playerId);
 				animations.moveCheckers(self, moves, playerId).then(function () {

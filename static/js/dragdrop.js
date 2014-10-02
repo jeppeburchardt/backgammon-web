@@ -33,9 +33,6 @@ define(['q'], function (Q) {
 			self.dragTo = null;
 			self.availableMoves = null;
 			self.currentMoves = [];
-			if (self.draggingChecker) {
-				self.draggingChecker.parentNode.removeChild(self.draggingChecker);
-			}
 		};
 
 		this.init = function (board) {
