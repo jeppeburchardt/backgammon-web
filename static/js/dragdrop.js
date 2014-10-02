@@ -174,7 +174,7 @@ define(['q'], function (Q) {
 			// console.log(self.availableMoves.length, ' possible moves left');
 			
 			if (self.availableMoves.length == 1 && self.availableMoves[0].join('_') == self.currentMoves.join('_')) { //BUG HERE...!
-				self.board.psuedoPlayerMove(tile, tile+distance, self.draggingChecker).then(function () {
+				self.board.psuedoPlayerMove(tile, tile+distance, self.draggingChecker).done(function () {
 					self.deffered.resolve(self.currentMoves);
 					self.reset();
 				});
