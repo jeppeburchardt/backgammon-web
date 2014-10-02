@@ -75,8 +75,8 @@ define(['q'], function (Q) {
 				if (self.draggingChecker && self.isDragging) {
 					var checkerSize = self.board.el.offsetWidth / 13;
 					var boardHeight = self.board.el.offsetHeight;
-					var x = (e.x - self.board.el.offsetLeft) - (checkerSize / 2);
-					var y = (e.y - self.board.el.offsetTop) + (checkerSize / 2);
+					var x = (e.pageX - self.board.el.offsetLeft) - (checkerSize / 2);
+					var y = (e.pageY - self.board.el.offsetTop) + (checkerSize / 2);
 					if (y > boardHeight / 2) {
 						y -= checkerSize * 2;
 					}
