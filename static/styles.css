@@ -266,10 +266,11 @@ body {
 	background-color: #CF1111;
 	content: "";
 	position: absolute;
-	top: 5px;
-	right: 5px;
-	bottom: 5px;
-	left: 5px;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: 13%;
 	border-radius: 100px;
 	border: 1px solid maroon;
 	box-shadow: 0 0 5px black, inset 4px 4px 2px -5px white;
