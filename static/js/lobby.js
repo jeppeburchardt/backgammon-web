@@ -15,6 +15,7 @@ define(function () {
 		this.init = function (options) {
 			console.log('LOBBY INIT', options);
 
+			self.controllerASelect.innerHTML = self.controllerBSelect.innerHTML = '';
 			options.controllers.forEach(function (controller) {
 				self.controllerASelect.innerHTML += '<option>'+controller+'</option>';
 				self.controllerBSelect.innerHTML += '<option>'+controller+'</option>';
