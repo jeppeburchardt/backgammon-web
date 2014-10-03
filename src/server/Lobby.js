@@ -1,5 +1,8 @@
 var bg = require('backgammon-ai');
 
+var Human = require('./Human');
+var bg = require('backgammon-ai');
+
 function Lobby (io) {
 
 	var self = this;
@@ -11,7 +14,19 @@ function Lobby (io) {
 		sendLobby(socket);
 
 		socket.on('playGame', function (options) {
-			var type = options.type || '';
+			
+			socket.emit('prepareGame');
+
+			switch(options.type) {
+				
+				case 'human-vs-machine':
+					humanVsMachine(socket, options);
+					break;
+
+				case 'machine-vs-machine':
+					machineVsMachine(socket, options);
+					break;
+			}
 		});
 	}
 
@@ -22,8 +37,44 @@ function Lobby (io) {
 		});
 	}
 
-	function playGame () {
+	function humanVsMachine (socket, options) {
+		var game = new bg.Game(3000);
+		var humanInterface = new Human(socket);
+		game.setController(humanInterface, options.playerName || 'Human');
+		game.setController(new bg.controllers[options.controllerA](), options.controllerA);
+		game.on('turnStart', function(id, dice) {
+			socket.emit('turnStart', id, dice);
+		})
+		game.on('turn', function (id, moves) {
+			socket.emit('turn', id, game.board, moves);
+		});
+		game.on('result', function (result) {
+			socket.emit('result', result);
 
+		});
+
+		socket.emit('playerId', humanInterface.id);
+		socket.emit('turn', game.getCurrentIndex(), game.board);
+
+		game.start();
+	}
+
+	function machineVsMachine (socket, options) {
+		var game = new bg.Game(3000);
+		game.setController(new bg.controllers[options.controllerA](), options.controllerA);
+		game.setController(new bg.controllers[options.controllerB](), options.controllerB);
+
+		game.on('turnStart', function(id, dice) {
+			socket.emit('turnStart', id, dice);
+		})
+		game.on('turn', function (id, moves) {
+			socket.emit('turn', id, game.board, moves);
+		});
+		game.on('result', function (result) {
+			socket.emit('result', result);
+		});
+		socket.emit('turn', game.getCurrentIndex(), game.board);
+		game.start();
 	}
 
 

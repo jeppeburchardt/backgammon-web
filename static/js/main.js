@@ -4,7 +4,7 @@ requirejs.config({
 	}
 });
 
-requirejs(['board', 'dragdrop'], function (Board, DragDrop) {
+requirejs(['board', 'dragdrop', 'lobby'], function (Board, DragDrop, Lobby) {
 
 	var socket = io.connect();
 
@@ -14,11 +14,18 @@ requirejs(['board', 'dragdrop'], function (Board, DragDrop) {
 	var dragdrop = new DragDrop();
 	dragdrop.init(board);
 
-	socket.on('lobby', function () {
+	var lobby = new Lobby(socket);
 
+	socket.on('lobby', function (options) {
 		document.querySelector('.content.lobby').style.display = 'block';
-
+		document.querySelector('.content.game').style.display = 'none';
+		lobby.init(options);
 	});
+
+	socket.on('prepareGame', function () {
+		document.querySelector('.content.lobby').style.display = 'none';
+		document.querySelector('.content.game').style.display = 'block';
+	})
 
 	socket.on('turnStart', function (playerId, dice) {
 		// a (non-player) turn has started

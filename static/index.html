@@ -14,25 +14,30 @@
 			<a href="#">Write Bot</a>
 		</div>
 		<div class="content lobby">
-			<select id="type">
-				<option value="human-vs-machine">Human VS Machine</option>
-				<option value="human-vs-machine">Machine VS Machine</option>
-			</select>
-			<select id="controller-a">
-				<option value="Aggressive">Aggressive</option>
-				<option value="PrimerEndGame">PrimerEndGame</option>
-				<option value="Random">Random</option>
-				<option value="Safe">Safe</option>
-				<option value="Runner">Runner</option>
-			</select>
-			<select id="controller-b">
-				<option value="Aggressive">Aggressive</option>
-				<option value="PrimerEndGame">PrimerEndGame</option>
-				<option value="Random">Random</option>
-				<option value="Safe">Safe</option>
-				<option value="Runner">Runner</option>
-			</select>
-			<input type="submit" value="start">
+			<label>
+				<legend>Game type</legend>
+				<select id="game-type">
+					<option value="human-vs-machine">Human VS Machine</option>
+					<option value="machine-vs-machine">Machine VS Machine</option>
+					<!--option value="human-vs-human">Human VS Human</option-->
+				</select>
+			</label>
+			<label>
+				<legend>Machine</legend>
+				<select id="controller-a"></select>
+			</label>
+			<label>
+				<legend>Machine</legend>
+				<select id="controller-b"></select>
+			</label>
+			<label>
+				<legend>Your name</legend>
+				<input id="player-name" type="text" value="">
+			</label>
+			<label>
+				<legend></legend>
+				<input id="start-game" type="submit" value="start">
+			</label>
 		</div>
 		<div class="content game">
 			<div id="board">

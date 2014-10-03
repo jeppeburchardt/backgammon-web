@@ -29,13 +29,59 @@ body {
 	padding: 20px 50px 30px 20px;
 	border: 1px solid #fff;
 }
-
+.content.menu {
+	display: none;
+}
+.content.logo {
+	display: none;
+}
 .content.lobby {
 	display: none;
 }
 .content.game {
 	display: none;
 }
+
+.lobby label {
+	clear: both;
+	display: block;
+	padding: 10px 0;
+}
+.lobby legend {
+	float: left;
+	text-align: right;
+	width: 40%;
+}
+.lobby legend,
+.lobby select, 
+.lobby input {
+	border: none;
+	padding: 4px;
+	margin: 4px;
+	line-height: 1em;
+}
+.lobby input[type=text] {
+	border-bottom: 1px solid #000;
+}
+.lobby input[type=submit] {
+	border-radius: 4px;
+}
+.lobby select, 
+.lobby input {
+	float: left;
+	font-family: 'Helvetica', sans-serif;
+	font-size: 22px;
+	letter-spacing: -1;
+	background-color: #eee;
+	width: 50%;
+}
+
+
+
+
+
+
+
 
 #info {
 	margin-top: 30px;
