@@ -179,6 +179,10 @@ body {
 	top: 5%;
 	position: absolute;
 	right: -10%;
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
 	transform: rotate(180deg);
 	border: 2px dashed #aaa;
 	border-radius: 20px;
@@ -186,6 +190,10 @@ body {
 }
 .home.bottom {
 	top: 55%;
+	-ms-transform: none;
+	-o-transform: none;
+	-webkit-transform: none;
+	-moz-transform: none;
 	transform: none;
 }
 .bar {
@@ -193,12 +201,20 @@ body {
 	height: 50%;
 	float: right;
 	position: relative;
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
 	transform: rotate(180deg);
 	animation: none;
 	text-align: center;
 }
 .bar.bottom {
 	float: left;
+	-ms-transform: none;
+	-o-transform: none;
+	-webkit-transform: none;
+	-moz-transform: none;
 	transform: none;
 }
 .bar:before {
@@ -213,6 +229,10 @@ body {
 }
 .tile.bottom{
 	float: left;
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
 .tile:before {
@@ -223,6 +243,10 @@ body {
 	width: 100%;
 	padding-bottom: 100%;
 	background-color: #333;
+	-ms-transform: scale(0.7, 5.5) rotate(45deg);
+	-o-transform: scale(0.7, 5.5) rotate(45deg);
+	-webkit-transform: scale(0.7, 5.5) rotate(45deg);
+	-moz-transform: scale(0.7, 5.5) rotate(45deg);
 	transform: scale(0.7, 5.5) rotate(45deg);
 	animation: none;
 }
@@ -234,7 +258,11 @@ body {
 
 }
 
-
+.tile.dragging {
+}
+.tile.dragging .checker:last-child {
+	display: none;
+}
 .tile.bottom:before {
 	/*top: auto;
 	bottom: -9%;*/
@@ -274,13 +302,30 @@ body {
 .no-drag .tile.odd.available-drag:after,
 .drag .tile.odd.available-drop:after {
 	-webkit-animation: highlight 1s infinite;
+	-moz-animation: highlight 1s infinite;
+	animation: highlight 1s infinite;
 }
 @-webkit-keyframes highlight {
   0%, 100% {
     bottom: -5%;
   }
   50% {
-    /*border-bottom-color: maroon;*/
+    bottom: 5%;
+  }
+}
+@-moz-keyframes highlight {
+  0%, 100% {
+    bottom: -5%;
+  }
+  50% {
+    bottom: 5%;
+  }
+}
+@keyframes highlight {
+  0%, 100% {
+    bottom: -5%;
+  }
+  50% {
     bottom: 5%;
   }
 }
@@ -294,13 +339,17 @@ body {
 	background-color: #CF1111;
 	content: "";
 	position: absolute;
-	top: 5px;
-	right: 5px;
-	bottom: 5px;
-	left: 5px;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: 13%;
 	border-radius: 100px;
 	border: 1px solid maroon;
 	box-shadow: 0 0 5px black, inset 4px 4px 2px -5px white;
+}
+.stack .checker {
+	margin-bottom: -50%;
 }
 .bar.top .checker:before,
 .home.top .checker:before,
