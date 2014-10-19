@@ -41,6 +41,9 @@ body {
 .content.game {
 	display: none;
 }
+.content.wait {
+	display: none;
+}
 
 .lobby label {
 	clear: both;

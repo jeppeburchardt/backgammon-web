@@ -19,12 +19,20 @@ requirejs(['board', 'dragdrop', 'lobby'], function (Board, DragDrop, Lobby) {
 	socket.on('lobby', function (options) {
 		document.querySelector('.content.lobby').style.display = 'block';
 		document.querySelector('.content.game').style.display = 'none';
+		document.querySelector('.content.wait').style.display = 'none';
 		lobby.init(options);
 	});
+
+	socket.on('waitingForOtherPlayer', function () {
+		document.querySelector('.content.lobby').style.display = 'none';
+		document.querySelector('.content.game').style.display = 'none';
+		document.querySelector('.content.wait').style.display = 'block';
+	})
 
 	socket.on('prepareGame', function () {
 		document.querySelector('.content.lobby').style.display = 'none';
 		document.querySelector('.content.game').style.display = 'block';
+		document.querySelector('.content.wait').style.display = 'none';
 	})
 
 	socket.on('turnStart', function (playerId, dice) {
