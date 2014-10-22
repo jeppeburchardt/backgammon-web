@@ -9,6 +9,8 @@ define(['q'], function (Q) {
 		self.board = null;
 		self.dragFrom = null;
 		self.dragTo = null;
+		self.tiles = null;
+		self.playerId = null;
 		self.draggingChecker = null;
 		self.availableMoves = null;
 		self.currentMoves = [];
@@ -18,7 +20,7 @@ define(['q'], function (Q) {
 			while(el != document.body && !el.classList.contains('tile') && !el.classList.contains('bar') && !el.classList.contains('home')) {
 				el = el.parentNode;
 			}
-			var index = self.board.tiles.indexOf(el);
+			var index = self.tiles.indexOf(el);
 			if (index == -1 && el.classList.contains('home')) {
 				index = 24;
 			}
@@ -35,9 +37,14 @@ define(['q'], function (Q) {
 			self.currentMoves = [];
 		};
 
-		this.init = function (board) {
+		this.init = function (board, playerId) {
 
 			self.board = board;
+			self.playerId = playerId;
+			self.tiles = (playerId === 0 ? board.tiles.slice() : board.tiles.slice().reverse());
+			self.home = (playerId === 0 ? board.bottomHome : board.topHome);
+			self.bar = (playerId === 0 ? board.topBar : board.bottomBar);
+
 			self.board.el.className = 'no-drag';
 
 			self.board.el.addEventListener('mousedown', function (e) {
@@ -100,9 +107,9 @@ define(['q'], function (Q) {
 				self.availableMoves.forEach(function (move) {
 					var start = move[self.currentMoves.length][0];
 					if (start == -1) {
-						self.board.topBar.classList.add('available-drag');
+						self.bar.classList.add('available-drag');
 					} else {
-						var tile = self.board.tiles[start];
+						var tile = self.tiles[start];
 						tile.classList.add('available-drag');
 					}
 				});
@@ -110,9 +117,9 @@ define(['q'], function (Q) {
 		};
 
 		this.clearDragDropClasses = function () {
-			self.board.topBar.classList.remove('available-drag', 'available-drop');
-			self.board.bottomHome.classList.remove('available-drag', 'available-drop');
-			self.board.tiles.forEach(function (tile) {
+			self.bar.classList.remove('available-drag', 'available-drop');
+			self.home.classList.remove('available-drag', 'available-drop');
+			self.tiles.forEach(function (tile) {
 				tile.classList.remove('available-drag', 'available-drop', 'dragging');
 			});
 		}
@@ -122,9 +129,9 @@ define(['q'], function (Q) {
 				if (move[self.currentMoves.length][0] == self.dragFrom.index) {
 					var index = self.dragFrom.index + move[self.currentMoves.length][1];
 					if (index < 24) {
-						self.board.tiles[index].classList.add('available-drop');
+						self.tiles[index].classList.add('available-drop');
 					} else if (index > 23) {
-						self.board.bottomHome.classList.add('available-drop');
+						self.home.classList.add('available-drop');
 					}
 				}
 			});
@@ -173,15 +180,15 @@ define(['q'], function (Q) {
 			
 			// console.log(self.availableMoves.length, ' possible moves left');
 			
-			if (self.availableMoves.length == 1 && self.availableMoves[0].join('_') == self.currentMoves.join('_')) { //BUG HERE...!
-				self.board.psuedoPlayerMove(tile, tile+distance, self.draggingChecker).done(function () {
+			if (self.availableMoves.length == 1 && self.availableMoves[0].join('_') == self.currentMoves.join('_')) {
+				self.board.psuedoPlayerMove(self.playerId, tile, tile+distance, self.draggingChecker).done(function () {
 					self.deffered.resolve(self.currentMoves);
 					self.reset();
 				});
 			} else {
 				self.markAvailableDrag();
 				if (ok) {
-					self.board.psuedoPlayerMove(tile, tile+distance, self.draggingChecker);
+					self.board.psuedoPlayerMove(self.playerId, tile, tile+distance, self.draggingChecker);
 				} else {
 					if (self.draggingChecker) {
 						self.draggingChecker.parentNode.removeChild(self.draggingChecker);

@@ -8,12 +8,7 @@ requirejs(['board', 'dragdrop', 'lobby'], function (Board, DragDrop, Lobby) {
 
 	var socket = io.connect();
 
-	var board = new Board();
-	board.buildBoard();
-
-	var dragdrop = new DragDrop();
-	dragdrop.init(board);
-
+	var dragdrop, board, playerId;
 	var lobby = new Lobby(socket);
 
 	socket.on('lobby', function (options) {
@@ -37,7 +32,7 @@ requirejs(['board', 'dragdrop', 'lobby'], function (Board, DragDrop, Lobby) {
 
 	socket.on('turnStart', function (playerId, dice) {
 		// a (non-player) turn has started
-		board.setDice(dice, 'b');
+		board.setDice(dice, playerId);
 	});
 
 	socket.on('turn', function (playerId, data, moves) {
@@ -45,9 +40,19 @@ requirejs(['board', 'dragdrop', 'lobby'], function (Board, DragDrop, Lobby) {
 		board.updateBoard(data, moves, playerId);
 	});
 
+	socket.on('playerId', function (id) {
+		playerId = id;
+
+		board = new Board();
+		board.buildBoard();
+
+		dragdrop = new DragDrop();
+		dragdrop.init(board, playerId);
+	})
+
 	socket.on('dice', function (data) {
 		// player's turn...
-		board.setDice(data.dice, 'a');
+		board.setDice(data.dice, playerId);
 		dragdrop.makeMove(data.availableMoves).then(function (moves) {
 			console.log('user make moves:', moves);
 			socket.emit('move', moves);

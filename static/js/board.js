@@ -17,7 +17,7 @@ define(['q', 'animations'], function(Q, animations) {
 		self.dice = self.el.querySelectorAll('.die');
 
 
-		this.setDice = function (roll, color) {
+		this.setDice = function (roll, player) {
 			if ('textContent' in document) {
 				self.dice[0].textContent = roll[0];
 				self.dice[1].textContent = roll[1];
@@ -25,11 +25,13 @@ define(['q', 'animations'], function(Q, animations) {
 				self.dice[0].innerText = roll[0];
 				self.dice[1].innerText = roll[1];
 			}
-			self.dice[0].className = self.dice[1].className = color;
+			self.dice[0].className = self.dice[1].className = (player === 0 ? 'a' : 'b');
 		};
 
-		this.psuedoPlayerMove = function (from, to, ghost) {
-			return animations.moveChecker(self, 0, from, to, true, ghost);
+		this.psuedoPlayerMove = function (playerId, from, to, ghost) {
+			// var tile = (playerId === 0 ? from : 23 - from);
+			// var target = (playerId === 0 ? to : 23 - to);
+			return animations.moveChecker(self, playerId, from, to, true, ghost);
 		};
 
 		this.updateBoard = function (data, moves, playerId) {
